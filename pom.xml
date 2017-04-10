@@ -115,6 +115,13 @@
 	<build>
 	
 	<resources>
+		<resource>
+				<directory> src</directory>
+				<excludes>
+					<exclude>main/* </exclude>
+				</excludes>
+		</resource>
+			
     	<resource>
       	  <directory>src/main/resources</directory>
       	  <filtering>true</filtering>
