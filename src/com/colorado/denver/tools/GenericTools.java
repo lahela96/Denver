@@ -9,19 +9,21 @@ import java.util.stream.Stream;
 
 import javax.management.ReflectionException;
 
-import org.apache.commons.logging.impl.Log4JLogger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.reflections.Reflections;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import com.colorado.denver.model.BaseEntity;
 
-public class GenericTools {
+public class GenericTools implements ApplicationContextAware {
 	private static final Reflections reflections = new Reflections(DenverConstants.COLORADO_PACKAGE);
-	private static final Log4JLogger LOGGER = new Log4JLogger();
+	private final static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GenericTools.class);
+
 	private SessionFactory sessionFactory;
 
 	/** The context. */
@@ -132,5 +134,10 @@ public class GenericTools {
 
 		return sessionFactory.getCurrentSession();
 	} // initTransAction
+
+	public void setApplicationContext(ApplicationContext ctx) throws BeansException {
+		context = ctx;
+
+	}
 
 }

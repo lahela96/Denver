@@ -1,0 +1,14 @@
+{
+	"lectures": [{
+		"exercises": [{
+			"objectClass": "exercise",
+			"id": "exercise_00001",
+			"lectures": []
+		}],
+		"objectClass": "lecture",
+		"id": "lecture_00001"
+	}],
+	"objectClass": "course",
+	"id": "course_00001",
+	"crud": "3"
+}

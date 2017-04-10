@@ -3,6 +3,10 @@ package com.colorado.denver.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +42,7 @@ public class DenverDBSetupTest {
 		// Using hibernate config file!
 		boolean useUpdate = false;
 		LOGGER.info("Creating session factory..");
+		dropAllSequences();
 		SessionTools.createSessionFactory(useUpdate);
 		LOGGER.info("Done Creating session factory.");
 
@@ -46,11 +51,13 @@ public class DenverDBSetupTest {
 	@Test
 	public void setupDatabase() {
 
-		Role roleAdmin = createRole(UserService.ROLE_GLOBAL_ADMINISTRATOR);
-		Role roleUser = createRole(UserService.ROLE_USER);
+		Role roleAdmin = createRole(UserService.ROLE_ADMIN);
+		Role roleStudent = createRole(UserService.ROLE_STUDENT);
+		Role roleDocent = createRole(UserService.ROLE_DOCENT);
+		Role roleTutor = createRole(UserService.ROLE_TUTOR);
 		User systemUser = createSystemUser();
 
-		updateRoles(roleAdmin, roleUser, systemUser);
+		updateRoles(roleAdmin, roleStudent, roleDocent, roleTutor, systemUser);
 	}
 
 	@After
@@ -59,16 +66,20 @@ public class DenverDBSetupTest {
 
 	}
 
-	private boolean updateRoles(Role roleAdmin, Role roleUser, User systemUser) {
+	private boolean updateRoles(Role roleAdmin, Role roleStudent, Role roleDocent, Role roleTutor, User systemUser) {
 		Set<User> systemUsers = new HashSet<>();
 		systemUsers.add(systemUser);
 		roleAdmin.setUsers(systemUsers);
-		roleUser.setUsers(systemUsers);
+		roleStudent.setUsers(systemUsers);
+		roleDocent.setUsers(systemUsers);
+		roleTutor.setUsers(systemUsers);
 
 		try {
 			HibernateController hibCtrl = HibernateGeneralTools.getHibernateController();
 			hibCtrl.mergeEntity(roleAdmin);
-			hibCtrl.mergeEntity(roleUser);
+			hibCtrl.mergeEntity(roleStudent);
+			hibCtrl.mergeEntity(roleDocent);
+			hibCtrl.mergeEntity(roleTutor);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +109,7 @@ public class DenverDBSetupTest {
 		// Hib save HibernateController hibCtrl =
 		HibernateController hibCtrl = HibernateGeneralTools.getHibernateController();
 
-		Role systemRole = RoleController.getRoleByName(UserService.ROLE_GLOBAL_ADMINISTRATOR);
+		Role systemRole = RoleController.getRoleByName(UserService.ROLE_ADMIN);
 
 		LOGGER.info("Got Role:" + systemRole.getRoleName());
 		ArrayList<Role> systemRoles = new ArrayList<Role>(0);
@@ -122,6 +133,52 @@ public class DenverDBSetupTest {
 		assertEquals(returnedU.getUsername(), UserService.getLoginNameFromAuthentication(auth));
 		return returnedU;
 
+	}
+
+	private static void dropAllSequences() {
+		try {
+
+			Class.forName("org.postgresql.Driver");
+
+		} catch (ClassNotFoundException e) {
+
+			LOGGER.error("Where is your PostgreSQL JDBC Driver? "
+					+ "Include in your library path!");
+			e.printStackTrace();
+			return;
+		}
+
+		LOGGER.info("PostgreSQL JDBC Driver Registered!");
+
+		Connection connection = null;
+
+		try {
+
+			connection = DriverManager.getConnection(
+					"jdbc:postgresql://localhost/Denver", "postgres", "password");
+
+		} catch (SQLException e) {
+
+			LOGGER.error("Connection Failed! Check output console");
+			e.printStackTrace();
+			return;
+
+		}
+
+		if (connection != null) {
+			try {
+				Statement stmt = connection.createStatement();
+				String sql = "drop sequence if exists course_sequence;drop sequence if exists exercise_sequence;drop sequence if exists lecture_sequence;drop sequence if exists role_sequence;drop sequence if exists solution_sequence;drop sequence if exists user_sequence;";
+				stmt.executeUpdate(sql);
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			LOGGER.error("Failed to make connection!");
+		}
 	}
 
 }

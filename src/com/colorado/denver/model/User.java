@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -31,29 +32,18 @@ public class User extends BaseEntity<User> {
 	public static final String ROLES = "roles";
 
 	private String username;
-
+	private Set<Lecture> lectures;
 	private transient String password;
 	protected transient boolean enabled;
-	private transient Set<Lecture> lectures;
 	private Course course;
 	private Set<Solution> solutions;
-	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private transient Set<Exercise> exercises;
-	private transient Collection<Role> roles;
+	private Collection<Role> roles;
 
 	public User() {
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public Set<Exercise> getExercises() {
-		return exercises;
-	}
-
-	public void setExercises(Set<Exercise> exercises) {
-		this.exercises = exercises;
-	}
-
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "lectures_users", joinColumns = { @JoinColumn(name = "lectures_id") }, inverseJoinColumns = { @JoinColumn(name = "users_id") })
 	public Set<Lecture> getLectures() {
 		return lectures;
 	}
@@ -62,7 +52,7 @@ public class User extends BaseEntity<User> {
 		this.lectures = lectures;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Set<Solution> getSolutions() {
 		return solutions;
 	}
@@ -71,7 +61,7 @@ public class User extends BaseEntity<User> {
 		this.solutions = solutions;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "courseID")
 	public Course getCourse() {
 		return course;
@@ -106,6 +96,7 @@ public class User extends BaseEntity<User> {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "roles_id") }, inverseJoinColumns = { @JoinColumn(name = "users_id") })
 	public Collection<Role> getRoles() {
 		return roles;
 	}

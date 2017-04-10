@@ -1,0 +1,9 @@
+{
+"objectClass": "exercise",
+"crud": "3",
+"id": "exercise_00001",
+"title": "Exercise 1",
+"description": "Lorem ipsum ...",
+"code": "this is codeUPDATED",
+"videoLink": "1234"
+}

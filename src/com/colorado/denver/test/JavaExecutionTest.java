@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.colorado.denver.services.javabytecoder.JavaExecutor;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JavaExecutionTest {
@@ -17,8 +15,6 @@ public class JavaExecutionTest {
 	public void executeJava() {
 		LOGGER.info("Start of bytebuddy");
 		// Use nashorn for js
-		JavaExecutor dC = new JavaExecutor();
-		dC.executeJava();
 
 		LOGGER.info("End of bytebuddy");
 	}

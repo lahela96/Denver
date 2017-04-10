@@ -36,7 +36,7 @@ class Header extends React.Component {
     };
   }
 
-  onBack(){
+  onBack() {
     browserHistory.goBack();
   }
 
@@ -46,8 +46,8 @@ class Header extends React.Component {
       <div style={{ 'margin': '0' }}>
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div>
-            <AppBar title="Colorado" style={{'backgroundColor': '#bd051f'}}
-            iconElementLeft={<IconButton><NavigationBack onClick={this.onBack}/></IconButton>}
+            <AppBar title="Colorado" style={{ 'backgroundColor': '#bd051f', 'opacity': '0.9' }}
+              iconElementLeft={<IconButton><NavigationBack onClick={this.onBack} /></IconButton>}
             />
           </div>
         </MuiThemeProvider>
@@ -74,10 +74,10 @@ class Content extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div id="content" style={{ 'marginLeft': '35%', 'marginRight': '35%', 'marginTop': '10%' }}>
           <Card>
-            <CardHeader style={{textAlign:"center"}} className="loginheader">
-              <Avatar size={60} src="images/colorado.jpg"/>
+            <CardHeader className="loginheader">
+              <Avatar size={60} src="images/colorado.jpg" />
             </CardHeader>
-        <Divider />
+            <Divider />
             <CardText className="loginbody">
               <div>
                 <TextField
@@ -87,7 +87,7 @@ class Content extends React.Component {
                   disabled={true}
                   fullWidth={true}
                   defaultValue="Nico"
-                  />
+                />
                 <br />
                 <TextField
                   floatingLabelText="Last Name"
@@ -96,35 +96,49 @@ class Content extends React.Component {
                   disabled={true}
                   defaultValue="Himmelein"
                   fullWidth={true}
-                  />
-                  <br />
-                  <TextField
+                />
+                <br />
+                <TextField
                   floatingLabelText="eMail"
                   type='text'
                   id="lastName"
                   disabled={true}
                   fullWidth={true}
                   defaultValue="s12345@student.dhbw-mannheim.de"
-                  />
+                />
+                <br />
+                <TextField
+                  floatingLabelText="Old Password"
+                  type="password"
+                  id="oldPassword"
+                  underlineFocusStyle={{ 'borderColor': '#bd051f' }}
+                  floatingLabelFocusStyle={{ 'color': '#bd051f' }}
+                  fullWidth={true}
+                />
                 <br />
                 <TextField
                   floatingLabelText="New Password"
                   type="password"
                   id="newPassword"
+                  underlineFocusStyle={{ 'borderColor': '#bd051f' }}
+                  floatingLabelFocusStyle={{ 'color': '#bd051f' }}
                   fullWidth={true}
-                  />
-                  <br />
+                />
+                <br />
                 <TextField
                   floatingLabelText="Repeat New Password"
                   type="password"
                   id="newPassword"
+                  underlineFocusStyle={{ 'borderColor': '#bd051f' }}
+                  floatingLabelFocusStyle={{ 'color': '#bd051f' }}
                   fullWidth={true}
-                  />
-                <br />
-                <br />
-                <RaisedButton label="Confirm" onClick={this.handleClick} />
+                />
+
               </div>
             </CardText>
+            <CardActions className="footer">
+              <RaisedButton label="Confirm" onClick={this.handleClick} />
+            </CardActions>
           </Card>
         </div>
       </MuiThemeProvider>

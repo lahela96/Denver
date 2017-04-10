@@ -16,6 +16,10 @@
 		lazy-init="default" primary="false" scope="singleton">
 	</bean>
 	
+
+
+  
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="packagesToScan" value="com.colorado"></property>
@@ -29,6 +33,8 @@
 		<property name="persistenceProvider"
 			value="org.hibernate.jpa.HibernatePersitenceProvider">
 		</property>
+		
+		
 	</bean>
 
 </beans>

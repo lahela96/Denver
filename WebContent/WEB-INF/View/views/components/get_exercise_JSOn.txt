@@ -1,9 +1,0 @@
-{
-"exercise_id": "0123",
-"exercise_title": "Fibonacci",
-"exercise_deadline": "24.11.2011",
-"exercise_videoLink": "https://www.youtube.com/embed/Ztc6_elMg60",
-"exercise_description": "abcdasfasdfasfd",
-"exercise_code": "public static void test(){}",
-"solution_code": "public static void test(int a, int b){}"
-}

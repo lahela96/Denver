@@ -1,0 +1,15 @@
+{
+  "exercises": [{
+  "objectClass": "exercise",
+  "id": "exercise_00001",
+  "deadline": null,
+  "title": "Fibonacci",
+  "solution_code": null,
+  "lectures": [{
+  "objectClass": "lecture",
+  "id": "lecture_00001"}]
+],
+  "objectClass": "lecture",
+  "id": "lecture_00001",
+  "crud": "3"
+}

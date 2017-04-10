@@ -1,0 +1,5 @@
+{
+"objectClass": "course",
+"crud": "2",
+"id": "course_00001"
+}

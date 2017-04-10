@@ -25,9 +25,9 @@ public class HibernateIdGenerator implements IdentifierGenerator {
 		ResultSet resultSet = null;
 
 		try {
-			BaseEntity clazz = (BaseEntity) obj;
+			BaseEntity<?> clazz = (BaseEntity<?>) obj;
 
-			String className = clazz.getObjectClass();
+			String className = clazz.getClass().getSimpleName();
 			className.toLowerCase();
 			LOGGER.info("Generating ID for class: " + className);
 

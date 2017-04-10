@@ -1,0 +1,7 @@
+{
+"objectClass": "exercise",
+"crud": "1",
+"title": "Exercise 1",
+"description": "Lorem ipsum ...",
+"code": "this is code"
+}

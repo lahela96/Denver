@@ -15,6 +15,7 @@ import com.colorado.denver.model.Lecture;
 import com.colorado.denver.model.Role;
 import com.colorado.denver.model.Solution;
 import com.colorado.denver.model.User;
+import com.colorado.denver.tools.HibernateInterceptor;
 
 public class SessionTools {
 
@@ -46,12 +47,14 @@ public class SessionTools {
 			LOGGER.info("Creating session factory instance!");
 
 			// Create session factory instance
+
 			sessionFactory = configuration.addPackage("com.colorado").addProperties(prop).addAnnotatedClass(Role.class)
 					.addAnnotatedClass(User.class).addAnnotatedClass(Exercise.class)
 					.addAnnotatedClass(Lecture.class).addAnnotatedClass(Course.class).addAnnotatedClass(Solution.class)
+					.setInterceptor(new HibernateInterceptor())
 					.buildSessionFactory(serviceRegistry);
 
-			// TODO: Drop sequences!
+			// TODO: Drop sequences on create!
 
 			LOGGER.info("Created session factory instance!");
 			// Get current session
@@ -60,39 +63,13 @@ public class SessionTools {
 			session.getTransaction().begin();
 
 			// Print out all required information
-			System.out.println("Session Is Opened :: " + session.isOpen());
-			System.out.println("Session Is Connected :: " + session.isConnected());
+			System.out.println("Session Is Opened : " + session.isOpen());
+			System.out.println("Session Is Connected : " + session.isConnected());
 
 			// Commit transaction
 			session.getTransaction().commit();
 			LOGGER.info("Session opened and committed!!");
-			/*
-			 * configuration.configure(); if (useHibernateConfigUpdateRoutine) {
-			 * if (configuration.getProperty("hibernate.hbm2ddl.auto").equals(
-			 * "create")) { LOGGER.info(""); LOGGER.info(
-			 * "======================================================");
-			 * LOGGER.info(""); LOGGER.
-			 * info("HIBERNATE >CREATE< MODE! ALL DATA WILL BE DROPPED!!!!!");
-			 * LOGGER.info(""); LOGGER.info(
-			 * "======================================================");
-			 * LOGGER.info(""); } } else {
-			 * configuration.setProperty("hibernate.hbm2ddl.auto", "update");
-			 * LOGGER.info(""); LOGGER.info(
-			 * "======================================================");
-			 * LOGGER.info("");
-			 * LOGGER.info("          HIBERNATE >UPDATE< MODE!");
-			 * LOGGER.info(""); LOGGER.info(
-			 * "======================================================");
-			 * LOGGER.info(""); } serviceRegistry = new
-			 * ServiceRegistryBuilder().applySettings(
-			 * configuration.getProperties()).buildServiceRegistry();
-			 * sessionFactory =
-			 * configuration.buildSessionFactory(serviceRegistry);
-			 * 
-			 */
-		} catch (
-
-		Throwable ex) {
+		} catch (Throwable ex) {
 			LOGGER.error("Failed to create sessionFactory" + ex);
 			ex.printStackTrace();
 			throw new ExceptionInInitializerError(ex);
