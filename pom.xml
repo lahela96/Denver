@@ -113,7 +113,7 @@
 	</dependencies>
 
 	<build>
-	
+	<sourceDirectory> ${basedir}/src </sourceDirectory>
 	<resources>
 		<resource>
 				<directory> src</directory>
