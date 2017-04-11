@@ -118,7 +118,7 @@
 		<resource>
 				<directory> src</directory>
 				<excludes>
-					<exclude>main/* </exclude>
+					<exclude>main/**</exclude>
 				</excludes>
 		</resource>
 			
