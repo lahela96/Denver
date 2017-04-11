@@ -115,12 +115,12 @@
 	<build>
 	<sourceDirectory> ${basedir}/src </sourceDirectory>
 	<resources>
-		<resource>
+		<!--<resource>
 				<directory> src</directory>
 				<excludes>
 					<exclude>main/**</exclude>
 				</excludes>
-		</resource>
+		</resource> -->
 			
     	<resource>
       	  <directory>src/main/resources</directory>
