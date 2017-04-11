@@ -14,7 +14,7 @@ node {
       if (isUnix()) {
          //sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
          //sh 'echo "'${mvnHome}/bin/mvn' clean package spring-boot:run -Dstart-class=com.colorado.denver.DenverApplication" | at now + 1 minutes'
-			sh "'${mvnHome}/bin/mvn' clean package spring-boot:run -Dstart-class=com.colorado.denver.DenverApplication"
+			sh "sudo '${mvnHome}/bin/mvn' clean package spring-boot:run -Dstart-class=com.colorado.denver.DenverApplication"
 	  } else {
          //bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package -Dstart-class=com.colorado.denver.DenverApplication/)
         // bat(/"${mvnHome}\bin\mvn" spring-boot {com.colorado.denver.DenverApplication}:start /)
